@@ -8,6 +8,13 @@ class Search extends Component {
         }
     }
 
+    onChange(event) {
+        this.props.onChange(event.target.value)
+        this.setState({
+            searchStr: event.target.value
+        })
+    }
+
     render() {
         return (
             <div className="container-fluid my-4">
@@ -16,6 +23,8 @@ class Search extends Component {
                         type='text'
                         className='form-control'
                         placeholder='Search for movie'
+                        value={this.state.searchStr}
+                        onChange={this.onChange.bind(this)}
                     />
                     <span className='input-group-btn'>
                         <button className='btn btn-outline-primary' type='button'>Go</button>
