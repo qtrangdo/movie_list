@@ -34,38 +34,54 @@ class App extends Component {
         this.setState({ movies: moviesChange, existMovies })
     }
     //BUGSSSSSSSSS!!!!
+    //CHECK FOR EMPTY TITLE
+    //SET conflick back to false when delete string
     addMovie(title) {
-        if (this.state.movies) {``
-            for (let movie of this.state.movie) {
-                if (movie.title === title) {
-                    conflictMovie = true;
-                } else {
-                    this.setState({
-                        movies: movies.push({movie: title}),
-                        conflictMovie: false
-                    })
-                }
-            }
-        } else {
+        const { conflictMovie } = this.state
+        // if(title = '') {
+        //     this.setState({ conflictMovie: false })
+        // } else
+        if (this.checkConflict(title)) {
+            this.setState({ conflictMovie: true })
+        } else if (!conflictMovie) {
+            let movies = this.state.movies;
+            !!movies ? movies.push({ 'title': title }) : movies = [{ 'title': title }];
             this.setState({
-                movies: [{movie: title}],
+                movies,
                 conflictMovie: false
             })
         }
+    }
+
+    checkConflict(title) {
+        const { movies } = this.state;
+        if (!!movies) {
+            for (let movie of movies) {
+                if (movie.title === title) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     render() {
         return (
             <div>
                 <Header />
-                <AddMovie addMovie = {this.addMovie.bind(this)} />
+                <AddMovie addMovie={this.addMovie.bind(this)} />
+                {this.state.conflictMovie &&
+                    <div className="alert alert-warning" role="warning">
+                        Movie is already in the list
+                    </div>
+                }
                 <Search onChange={this.onChange.bind(this)} />
                 {!!this.state.movies &&
                     <div className='container-fluid card'>
                         {this.state.movies.map(movie => <MovieItem key={movie.title} movie={movie} />)}
                     </div>
                 }
-                {!this.state.existMovies && 
+                {!this.state.existMovies &&
                     <div className='alert alert-warning' role='alert'>
                         {/* Add icon herelater */}
                         No movie found
