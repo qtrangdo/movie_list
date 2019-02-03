@@ -25,7 +25,7 @@ class MovieItem extends Component {
                         <div className="col col-sm-3">
                         {this.state.watched
                             ? <button className="btn btn-success btn-sm" onClick={this.onClick.bind(this)}> Watched</button>
-                            : <button className="btn btn-info btn-sm" onClick={this.onClick.bind(this)}> To watched</button>
+                            : <button className="btn btn-info btn-sm" onClick={this.onClick.bind(this)}> To watch</button>
                         }
                             
                         </div>

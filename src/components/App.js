@@ -91,7 +91,7 @@ class App extends Component {
                         <button className="btn btn-success align-self-center">Watched</button>
                     </div>
                     <div className="col col-sm-2 bg-info d-flex justify-content-center">
-                        <button className="btn btn-info align-self-center">To Watched</button>
+                        <button className="btn btn-info align-self-center">To Watch</button>
                     </div>
                     <div className="col col-sm-8">
                         <Search onChange={this.onChange.bind(this)} />
