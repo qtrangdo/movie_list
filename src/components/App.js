@@ -20,6 +20,7 @@ class App extends Component {
             existMovies: true,
             conflictMovie: false
         }
+        this.addQuery = '';
     }
 
     onChange(str) {
@@ -32,6 +33,11 @@ class App extends Component {
         });
         moviesChange.length > 0 ? existMovies = true : existMovies = false;
         this.setState({ movies: moviesChange, existMovies })
+    }
+
+    movieChange(event) {
+        //event is false
+        this.setState({conflictMovie: false})
     }
     //BUGSSSSSSSSS!!!!
     //CHECK FOR EMPTY TITLE
@@ -69,7 +75,7 @@ class App extends Component {
         return (
             <div>
                 <Header />
-                <AddMovie addMovie={this.addMovie.bind(this)} />
+                <AddMovie addMovie={this.addMovie.bind(this)} onChange={this.movieChange.bind(this)}/>
                 {this.state.conflictMovie &&
                     <div className="alert alert-warning" role="warning">
                         Movie is already in the list

@@ -4,24 +4,20 @@ class AddMovie extends Component {
     constructor() {
         super();
         this.state = {
-            movie: {
-                title: ''
-            }
+            title: ''
         }
     }
 
     onChange(event) {
-        this.setState({
-            ...this.state,
-            movie: {
-                ...this.state.movie,
-                title: event.target.value
+        this.setState({title: event.target.value}, () => {
+            if (this.state.title === '') {
+                this.props.onChange(false)
             }
         })
     }
 
     onClick() {
-        this.props.addMovie(this.state.movie.title)
+        this.props.addMovie(this.state.title)
     }
 
     render() {
@@ -32,7 +28,7 @@ class AddMovie extends Component {
                         type='text'
                         className='form-control'
                         placeholder='Add a movie title'
-                        value={this.state.movie.title}
+                        value={this.state.title}
                         onChange={this.onChange.bind(this)}
                     />
                     <span className='input-group-btn'>
