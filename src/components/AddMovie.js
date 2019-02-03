@@ -12,6 +12,8 @@ class AddMovie extends Component {
         this.setState({title: event.target.value}, () => {
             if (this.state.title === '') {
                 this.props.onChange(false)
+            } else {
+                this.props.onChange(true)
             }
         })
     }

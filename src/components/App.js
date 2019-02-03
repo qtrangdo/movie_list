@@ -18,7 +18,8 @@ class App extends Component {
         this.state = {
             movies: null || movies,
             existMovies: true,
-            conflictMovie: false
+            conflictMovie: false,
+            emptyTitle: false
         }
         this.addQuery = '';
     }
@@ -36,17 +37,19 @@ class App extends Component {
     }
 
     movieChange(event) {
-        //event is false
-        this.setState({conflictMovie: false})
+        if (event === false) {
+            this.setState({conflictMovie: false})
+        } else {
+            this.setState({emptyTitle: false})
+        }
     }
-    //BUGSSSSSSSSS!!!!
-    //CHECK FOR EMPTY TITLE
-    //SET conflick back to false when delete string
+    
+
     addMovie(title) {
         const { conflictMovie } = this.state
-        // if(title = '') {
-        //     this.setState({ conflictMovie: false })
-        // } else
+        if(title === '') {
+            this.setState({ emptyTitle: true })
+        } else
         if (this.checkConflict(title)) {
             this.setState({ conflictMovie: true })
         } else if (!conflictMovie) {
@@ -79,6 +82,11 @@ class App extends Component {
                 {this.state.conflictMovie &&
                     <div className="alert alert-warning" role="warning">
                         Movie is already in the list
+                    </div>
+                }
+                {this.state.emptyTitle &&
+                    <div className="alert alert-warning" role="warning">
+                        Please enter movie title to add.
                     </div>
                 }
                 <Search onChange={this.onChange.bind(this)} />
