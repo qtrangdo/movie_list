@@ -32,31 +32,31 @@ class App extends Component {
 
     movieChange(event) {
         if (event === false) {
-            this.setState({conflictMovie: false})
+            this.setState({ conflictMovie: false })
         } else {
-            this.setState({emptyTitle: false})
+            this.setState({ emptyTitle: false })
         }
     }
-    
+
 
     addMovie(title) {
-        const { conflictMovie, movies, matchedMovie} = this.state
+        const { conflictMovie, movies, matchedMovie } = this.state
 
-        if(title === '') {
+        if (title === '') {
             this.setState({ emptyTitle: true })
         } else
-        if (this.checkConflict(title)) {
-            this.setState({ conflictMovie: true })
-        } else if (!conflictMovie) {
-            movies.push({ 'title': title });
-            matchedMovie.push({ 'title': title })
-            // !!movies ? movies.push({ 'title': title }) : movies = [{ 'title': title }];
-            this.setState({
-                movies,
-                matchedMovie,
-                conflictMovie: false
-            })
-        }
+            if (this.checkConflict(title)) {
+                this.setState({ conflictMovie: true })
+            } else if (!conflictMovie) {
+                movies.push({ 'title': title });
+                matchedMovie.push({ 'title': title })
+                // !!movies ? movies.push({ 'title': title }) : movies = [{ 'title': title }];
+                this.setState({
+                    movies,
+                    matchedMovie,
+                    conflictMovie: false
+                })
+            }
     }
 
     checkConflict(title) {
@@ -75,7 +75,7 @@ class App extends Component {
         return (
             <div>
                 <Header />
-                <AddMovie addMovie={this.addMovie.bind(this)} onChange={this.movieChange.bind(this)}/>
+                <AddMovie addMovie={this.addMovie.bind(this)} onChange={this.movieChange.bind(this)} />
                 {this.state.conflictMovie &&
                     <div className="alert alert-warning" role="warning">
                         Movie is already in the list
@@ -86,7 +86,17 @@ class App extends Component {
                         Please enter movie title to add.
                     </div>
                 }
-                <Search onChange={this.onChange.bind(this)} />
+                <div className="row">
+                    <div className="col col-sm-2 bg-success d-flex justify-content-center">
+                        <button className="btn btn-success align-self-center">Watched</button>
+                    </div>
+                    <div className="col col-sm-2 bg-info d-flex justify-content-center">
+                        <button className="btn btn-info align-self-center">To Watched</button>
+                    </div>
+                    <div className="col col-sm-8">
+                        <Search onChange={this.onChange.bind(this)} />
+                    </div>
+                </div>
                 {!this.state.existMovies &&
                     <div className='alert alert-warning' role='alert'>
                         {/* Add icon herelater */}
@@ -94,9 +104,9 @@ class App extends Component {
                     </div>
                 }
                 {/* {!!this.state.movies && */}
-                    <div className='container-fluid card'>
-                        {this.state.matchedMovie.map(movie => <MovieItem key={movie.title} movie={movie} />)}
-                    </div>
+                <div className='container-fluid card'>
+                    {this.state.matchedMovie.map(movie => <MovieItem key={movie.title} movie={movie} />)}
+                </div>
                 {/* } */}
             </div>
         )

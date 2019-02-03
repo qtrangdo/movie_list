@@ -5,7 +5,7 @@ class MovieItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            watched: true
+            watched: false
         }
     }
 
@@ -19,10 +19,10 @@ class MovieItem extends Component {
             <div className='card-body border'>
                 <h5 className='card-title'>
                     <div className='row'>
-                        <div className="col col-sm-8">
+                        <div className="col col-sm-9">
                             {this.props.movie.title}
                         </div>
-                        <div className="col col-sm-4">
+                        <div className="col col-sm-3">
                         {this.state.watched
                             ? <button className="btn btn-success btn-sm" onClick={this.onClick.bind(this)}> Watched</button>
                             : <button className="btn btn-info btn-sm" onClick={this.onClick.bind(this)}> To watched</button>
